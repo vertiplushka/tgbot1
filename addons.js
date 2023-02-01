@@ -93,14 +93,5 @@ module.exports = {
                 [{text: 'Да, я хочу', callback_data: 'Join'}, {text: 'Нет, спасибо', callback_data: 'notJoin'}]
             ]
         })
-    },
-
-    join : {
-        reply_markup: JSON.stringify({
-            inline_keyboard: [
-                [{text: 'Присоедениться к чату', callback_data: 'fsasdsdf'}]
-            ]
-        })
     }
-
 }

@@ -1,6 +1,6 @@
 const telegramBot = require('node-telegram-bot-api')
-token = '5961435382:AAH5ieClrWOSVMcluzFRqBN3PVg5fIcdiGw'
-const {helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, helloForm2, chatForm, join} = require('./addons')
+token = '6040315554:AAHwQLwGutKi1uUlTNnW9NvDyXPvGzpyJaY'
+const {helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, helloForm2, chatForm} = require('./addons')
 
 const bot = new telegramBot(token, {polling: true})
 let isForm = false
@@ -21,7 +21,13 @@ function padTo2Digits(num) {
     ].join('.');
   }
 
-
+  const join = {
+    reply_markup: JSON.stringify({
+        inline_keyboard: [
+            [{text: 'Присоедениться к чату', url: 'https://t.me/+dqcmDmtmf4dkZmE6'}]
+        ]
+    })
+  }
 
 
 const start = async () => {
@@ -159,7 +165,6 @@ const start = async () => {
             case '8':
             case '9':
                 bot.deleteMessage(chatId, messageId)
-                console.log('fdfddffffffffffffffffffffffffffffffffffffffffffffffff')
                 let buf = new Date()
                 str = formatDate(buf.setDate(buf.getDate() + parseInt(data)))
                 buf = ''
@@ -179,7 +184,7 @@ const start = async () => {
                 bot.deleteMessage(chatId, messageId)
                 if (str != '') {
                     bot.sendMessage(chatId, `Мы с вами свяжемся ${str} в ${data}. Для изменения даты или времени, напишите нам - "ссылка на профиль"`)
-                    bot.sendMessage(1130306939, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
+                    bot.sendMessage(732162115, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
                     bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
                         
                 }
@@ -196,7 +201,7 @@ const start = async () => {
         //console.log(msg)
 
         if (text === '/start') {
-       
+            //console.log(chatId)
             await bot.sendMessage(chatId, `Доброго времени суток, ${user}! ` + helloStr)
             return bot.sendMessage(chatId, 'Кстати, скоро старт следующего забега! Пойдешь с нами?', helloForm);
         }
@@ -205,10 +210,10 @@ const start = async () => {
                 let messageId = msg.message_id
                 isForm = false
                 //console.log (user, text, chatId);
-                await bot.sendMessage(1130306939, `Новая заполненная анкета от ${msg.from.first_name} ${msg.from.last_name}`)
+                await bot.sendMessage(732162115, `Новая заполненная анкета от ${msg.from.first_name} ${msg.from.last_name}`)
                 await bot.sendMessage(chatId, 'Ваша анкета получена, в скором времени мы ее обработаем.')
                 await bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
-                return bot.forwardMessage(1130306939, chatId, messageId)
+                return bot.forwardMessage(732162115, chatId, messageId)
                 
             }   
             else {
