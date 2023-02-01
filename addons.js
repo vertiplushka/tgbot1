@@ -40,10 +40,12 @@ module.exports = {
     timeForm: {
         reply_markup: JSON.stringify ({
             inline_keyboard: [
-                [{text: '9:00', callback_data: '9:00'},  {text: '10:00', callback_data: '10:00'},  {text: '11:00', callback_data: '11:00'}],
-                [{text: '12:00', callback_data: '12:00'}, {text: '13:00', callback_data: '13:00'}, {text: '14:00', callback_data: '14:00'}],
-                [{text: '15:00', callback_data: '15:00'}, {text: '16:00', callback_data: '16:00'}, {text: '17:00', callback_data: '17:00'}], 
-                [{text: '18:00', callback_data: '18:00'}, {text: '19:00', callback_data: '19:00'}, {text: '20:00', callback_data: '20:00'}]
+                [{text: '8:00', callback_data: '8:00'}, {text: '9:00', callback_data: '9:00'}],
+                [{text: '10:00', callback_data: '10:00'}, {text: '11:00', callback_data: '11:00'}],
+                [{text: '12:00', callback_data: '12:00'}, {text: '13:00', callback_data: '13:00'}],
+                [{text: '14:00', callback_data: '14:00'}, {text: '15:00', callback_data: '15:00'}],
+                [{text: '16:00', callback_data: '16:00'}, {text: '17:00', callback_data: '17:00'}]
+
             ]
         })
     },

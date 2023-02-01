@@ -4,23 +4,28 @@ const {helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, tim
 
 const bot = new telegramBot(token, {polling: true})
 let isForm = false
+var time = 0
+let str = ''
 
-function formatDate(date) {
 
-    var dd = date.getDate();
-    if (dd < 10) dd = '0' + dd;
+function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
   
-    var mm = date.getMonth() + 1;
-    if (mm < 10) mm = '0' + mm;
-  
-    var yy = date.getFullYear() % 100;
-    if (yy < 10) yy = '0' + yy;
-  
-    return dd + '.' + mm + '.' + yy;
-}
+  function formatDate(d) {
+    var date = new Date(d)
+    return [
+      padTo2Digits(date.getDate()),
+      padTo2Digits(date.getMonth() + 1),
+      date.getFullYear(),
+    ].join('.');
+  }
+
+
 
 
 const start = async () => {
+
 
     bot.on("polling_error", console.log);
 
@@ -29,11 +34,31 @@ const start = async () => {
         const data = quere.data
         const user = quere.from.first_name
         const messageId = quere.message.message_id
+
+    
+        let d1 = new Date()
+        let d2 = new Date()
+        let d3 = new Date()
+        let d4 = new Date()
+        let d5 = new Date()
+        let d6 = new Date()
+        let d7 = new Date()
+        let d8 = new Date()
+        let d9 = new Date()
         
+        
+        d1 = formatDate(d1)
+        d2 = formatDate(d2.setDate(d2.getDate() + 1))
+        d3 = formatDate(d3.setDate(d3.getDate() + 2))
+        d4 = formatDate(d4.setDate(d4.getDate() + 3))
+        d5 = formatDate(d5.setDate(d5.getDate() + 4))
+        d6 = formatDate(d6.setDate(d6.getDate() + 5))
+        d7 = formatDate(d7.setDate(d7.getDate() + 6))
+        d8 = formatDate(d8.setDate(d8.getDate() + 7))
+        d9 = formatDate(d9.setDate(d9.getDate() + 8))   
 
         switch (data) {
 
-            
             case 'yes':
             case 'replyYes':
                 bot.editMessageText('Кстати, скоро старт следующего забега! Пойдешь с нами?', {message_id: messageId, chat_id: chatId})
@@ -62,7 +87,16 @@ const start = async () => {
 
             case 'audio':
             case 'video':
-                bot.sendMessage(chatId, 'Выберите время, когда с вами будет удобно связаться', timeForm)
+            const dateForm = {
+                reply_markup: JSON.stringify({
+                    inline_keyboard :[
+                        [{text: `${d1}`, callback_data: '1'}, {text: `${d2}`, callback_data: '2'}, {text: `${d3}`, callback_data: '3'}],
+                        [{text: `${d4}`, callback_data: '4'}, {text: `${d5}`, callback_data: '5'}, {text: `${d6}`, callback_data: '6'}],
+                        [{text: `${d7}`, callback_data: '7'}, {text: `${d8}`, callback_data: '8'}, {text: `${d9}`, callback_data: '9'}]
+                    ]
+                })
+            }
+                bot.sendMessage(chatId, 'Выберите дату, когда с вами будет удобно связаться', dateForm)
             break
 
 
@@ -71,7 +105,6 @@ const start = async () => {
                 bot.sendMessage(chatId, 'В этом разделе вы можете ознакомиться с результатами наших участников')
                 bot.sendPhoto(chatId, 'https://sun9-west.userapi.com/sun9-66/s/v1/ig2/zG9TN1X009abg-jCZJCmIGtPN6twTOzJEq-KKgD_M5yy_xAhO12AFqmqdRASbyrqh3yPg5yk__VaEMDGeE2RYo1z.jpg?size=1448x1448&quality=95&type=album', phList1)
             break
-
 
             case 'list1' :
                 bot.deleteMessage(chatId, messageId)
@@ -115,6 +148,25 @@ const start = async () => {
             case 'Join':
                 bot.sendMessage(chatId, 'Ваша ссылка на вступление в чат', join)
             break
+
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                bot.deleteMessage(chatId, messageId)
+                console.log('fdfddffffffffffffffffffffffffffffffffffffffffffffffff')
+                let buf = new Date()
+                str = formatDate(buf.setDate(buf.getDate() + parseInt(data)))
+                buf = ''
+                bot.sendMessage(chatId, 'Выберите удобное для вас время \n Учтите, тут указан московский часовой пояс', timeForm)
+            break
+            
+            case '8:00':
             case '9:00':
             case '10:00':
             case '11:00':
@@ -124,36 +176,14 @@ const start = async () => {
             case '15:00':
             case '16:00':
             case '17:00':
-            case '18:00':
-            case '19:00':
-            case '20:00':
-
-            
-
-                var d1 = new Date()
-                var d2, d3, d4, d5, d6, d7, d8, d9 = d1
-                d1 = formatDate(d1.getDate(d1.setDate))
-                d2 = formatDate(d2.setDate(d2.getDate() + 1))
-                d3 = formatDate(d3.setDate(d3.getDate() + 2))
-                d4 = formatDate(d4.setDate(d4.getDate() + 3))
-                d5 = formatDate(d5.setDate(d5.getDate() + 4))
-                d6 = formatDate(d6.setDate(d6.getDate() + 5))
-                d7 = formatDate(d7.setDate(d7.getDate() + 6))
-                d8 = formatDate(d8.setDate(d8.getDate() + 7))
-                d9 = formatDate(d9.setDate(d9.getDate() + 8))           
-
-                const dateForm = {
-                    reply_markup: JSON.stringify({
-                        inline_keyboard :[
-                            [{text: `${d1}`, callback_data: 'd1'}, {text: `${d2}`, callback_data: 'd2'}, {text: `${d3}`, callback_data: 'd3'}],
-                            [{text: `${d4}`, callback_data: 'd4'}, {text: `${d5}`, callback_data: 'd5'}, {text: `${d6}`, callback_data: 'd6'}],
-                            [{text: `${d7}`, callback_data: 'd7'}, {text: `${d8}`, callback_data: 'd8'}, {text: `${d9}`, callback_data: 'd9'}],
-                        ]
-                    })
+                bot.deleteMessage(chatId, messageId)
+                if (str != '') {
+                    bot.sendMessage(chatId, `Мы с вами свяжемся ${str} в ${data}. Для изменения даты или времени, напишите нам - "ссылка на профиль"`)
+                    bot.sendMessage(1130306939, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
+                    bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
+                        
                 }
-                bot.sendMessage(chatId, `Мы с вами свяжемся в ${data}. Для изменения времени, напишите нам - "ссылка на профиль"`)
-                bot.sendMessage(1130306939, `Новая заявка на звонок от @${quere.from.username}  в ${data}`)
-                bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
+                str = ''
             break
         }
      })
