@@ -183,7 +183,7 @@ const start = async () => {
             case '17:00':
                 bot.deleteMessage(chatId, messageId)
                 if (str != '') {
-                    bot.sendMessage(chatId, `Мы с вами свяжемся ${str} в ${data}. Для изменения даты или времени, напишите нам - "ссылка на профиль"`)
+                    bot.sendMessage(chatId, `Мы с вами свяжемся ${str} в ${data}. Для изменения даты или времени, напишите нам - @VALERY182`)
                     bot.sendMessage(732162115, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
                     bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
                         
