@@ -251,8 +251,6 @@ const start = async () => {
         }
 })    
 }
-
-setInterval(statistics, 86400000, myId)
 setInterval(() => {
     var d = formatDate(new Date())
     var t = formatTime(new Date())
