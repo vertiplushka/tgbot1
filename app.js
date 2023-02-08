@@ -1,14 +1,40 @@
 const telegramBot = require('node-telegram-bot-api')
-token = '6040315554:AAHwQLwGutKi1uUlTNnW9NvDyXPvGzpyJaY'
-const {helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, helloForm2, chatForm} = require('./addons')
+const {token, helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, helloForm2, chatForm} = require('./addons')
 
 const bot = new telegramBot(token, {polling: true})
+
+const myId = 732162115
+const AuthorId = 451878659
+
+let startCounter = 0
+let callCounter = 0
+let writeCounter = 0
+
 let isForm = false
-var time = 0
 let str = ''
 
 
-function padTo2Digits(num) {
+
+  function formatTime(date) {
+      let hours = date.getHours();
+      if (hours < 10) {
+        hours = `0${hours}`;
+      }
+    
+      let minutes = date.getMinutes();
+      if (minutes < 10) {
+        minutes = `0${minutes}`;
+      }
+    
+      let seconds = date.getSeconds();
+      if (seconds < 10) {
+        seconds = `0${seconds}`;
+      }
+    
+      return `${hours}:${minutes}:${seconds}`;
+  }
+
+  function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
   
@@ -101,14 +127,15 @@ const start = async () => {
                         [{text: `${d7}`, callback_data: '7'}, {text: `${d8}`, callback_data: '8'}, {text: `${d9}`, callback_data: '9'}]
                     ]
                 })
-            }
+            }   
+                callCounter += 1
                 bot.sendMessage(chatId, 'Выберите дату, когда с вами будет удобно связаться', dateForm)
             break
 
 
             case 'results':
                 bot.editMessageText('Кстати, скоро старт следующего забега! Пойдешь с нами?', {message_id: messageId, chat_id: chatId})
-                bot.sendMessage(chatId, 'В этом разделе вы можете ознакомиться с результатами наших участников')
+                bot.sendMessage(chatId, 'В этом разделе вы можете ознакомиться с результатами наших участников. \n \n \n Желаете добиться таких же результатов? Заполняйте анкету и присоединяйтесь к нам!')
                 bot.sendPhoto(chatId, 'https://sun9-west.userapi.com/sun9-66/s/v1/ig2/zG9TN1X009abg-jCZJCmIGtPN6twTOzJEq-KKgD_M5yy_xAhO12AFqmqdRASbyrqh3yPg5yk__VaEMDGeE2RYo1z.jpg?size=1448x1448&quality=95&type=album', phList1)
             break
 
@@ -139,7 +166,6 @@ const start = async () => {
             break
 
             case 'back':
-                counter = 2
                 bot.deleteMessage(chatId,messageId)
                 setTimeout(()=>{
                     bot.sendMessage(chatId, `Доброго времени суток, ${user}! ` + helloStr)
@@ -184,7 +210,7 @@ const start = async () => {
                 bot.deleteMessage(chatId, messageId)
                 if (str != '') {
                     bot.sendMessage(chatId, `Мы с вами свяжемся ${str} в ${data}. Для изменения даты или времени, напишите нам - @VALERY182`)
-                    bot.sendMessage(732162115, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
+                    bot.sendMessage(myId, `Новая заявка на звонок от @${quere.from.username}: ${str} в ${data}`)
                     bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
                         
                 }
@@ -202,6 +228,7 @@ const start = async () => {
 
         if (text === '/start') {
             //console.log(chatId)
+            startCounter+=1 
             await bot.sendMessage(chatId, `Доброго времени суток, ${user}! ` + helloStr)
             return bot.sendMessage(chatId, 'Кстати, скоро старт следующего забега! Пойдешь с нами?', helloForm);
         }
@@ -210,10 +237,11 @@ const start = async () => {
                 let messageId = msg.message_id
                 isForm = false
                 //console.log (user, text, chatId);
-                await bot.sendMessage(732162115, `Новая заполненная анкета от ${msg.from.first_name} ${msg.from.last_name}`)
+                writeCounter += 1
+                await bot.sendMessage(myId, `Новая заполненная анкета от ${msg.from.first_name} ${msg.from.last_name}`)
                 await bot.sendMessage(chatId, 'Ваша анкета получена, в скором времени мы ее обработаем.')
                 await bot.sendMessage(chatId, 'Желаете вступить в наш телеграм-чат и подписаться на рассылку?', chatForm)
-                return bot.forwardMessage(732162115, chatId, messageId)
+                return bot.forwardMessage(myId, chatId, messageId)
                 
             }   
             else {
@@ -224,6 +252,12 @@ const start = async () => {
 })    
 }
 
+setInterval(statistics, 86400000, myId)
+setInterval(() => {
+    var d = formatDate(new Date())
+    var t = formatTime(new Date())
 
-start()
-
+    bot.sendMessage(myId, `На момент ${d} ${t}: \n\n\n ${startCounter} раз был запущен бот через команду /start} \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено`);
+    bot.sendMessage(AuthorId, `На момент ${d} ${t}: \n\n\n ${startCounter} раз был запущен бот через команду /start} \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено`);
+    }, 86400000)
+    start()
