@@ -258,4 +258,8 @@ setInterval(() => {
     bot.sendMessage(myId, `На момент ${d} ${t}: \n\n\n ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено`);
     bot.sendMessage(AuthorId, `На момент ${d} ${t}: \n\n\n ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено`);
     }, 86400000)
+
+    startCounter = 0
+    writeCounter = 0
+    callCounter = 0
     start()

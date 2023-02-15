@@ -18,7 +18,7 @@ module.exports = {
     form: {
         reply_markup: JSON.stringify({
             inline_keyboard: [
-                [{text: 'Заполнить анкету', callback_data: 'next'}]
+                [{text: 'Вернуться назад', callback_data: 'back'}]
             ]
         })
     },
