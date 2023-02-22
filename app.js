@@ -1,5 +1,5 @@
 const telegramBot = require('node-telegram-bot-api')
-const {token, helloForm, helloStr, form, replyForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, helloForm2, chatForm} = require('./addons')
+const {token, helloForm, helloStr, form, replyForm, aboutForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, chatForm} = require('./addons')
 
 const bot = new telegramBot(token, {polling: true})
 
@@ -104,7 +104,7 @@ const start = async () => {
 
             case 'about':
                 bot.editMessageText('Кстати, скоро старт следующего забега! Пойдешь с нами?', {message_id: messageId, chat_id: chatId})
-                bot.sendMessage(chatId, aboutStr, form)
+                bot.sendMessage(chatId, aboutStr, aboutForm)
             break
 
             case 'next':
