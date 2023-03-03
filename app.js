@@ -250,7 +250,7 @@ const start = async () => {
         }
 })    
 }
-setTimeout(setInterval(() => {
+setTimeout(() => setInterval(() => {
     
     bufSC += startCounter
     bufWC += writeCounter
