@@ -255,11 +255,13 @@ const start = async () => {
 })    
 }
 
+
 setInterval(() => {
     
     bufSC += startCounter
     bufWC += writeCounter
     bufCC += callCounter
+    console.log(`${formatDate(new Date())} - working`)
 
     bot.sendMessage(myId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\nС момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
     bot.sendMessage(AuthorId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\nС момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
@@ -271,5 +273,7 @@ setInterval(() => {
 
 
 let sd = formatDate(new Date())
-let st = formatDate(new Date())
+let st = formatTime(new Date())
+
+console.log(`Started at ${sd} ${st}`)
 start()
