@@ -6,8 +6,12 @@ const bot = new telegramBot(token, {polling: true})
 const myId = 732162115
 const AuthorId = 451878659
 
-let startCounter, callCounter, writeCounter = 0
-let bufCC, bufSC, bufWC = 0
+let startCounter = 0
+let callCounter = 0
+let writeCounter = 0
+let bufCC = 0
+let bufSC = 0
+let bufWC = 0
 
 let isForm = false
 let str = ''
@@ -250,18 +254,19 @@ const start = async () => {
         }
 })    
 }
-setTimeout(() => setInterval(() => {
+
+setInterval(() => {
     
     bufSC += startCounter
     bufWC += writeCounter
     bufCC += callCounter
 
-    bot.sendMessage(myId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\n С момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
-    bot.sendMessage(AuthorId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\n С момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
+    bot.sendMessage(myId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\nС момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
+    bot.sendMessage(AuthorId, `Сегодня: \n\n\ ${startCounter} раз был запущен бот через команду /start \n ${writeCounter} письменных анкет заполнено \n ${callCounter} заявок на звонки оставлено \n\n\n\nС момента старта бота ${sd} в ${st}: \n\n\ ${bufSC} раз был запущен бот через команду /start \n ${bufWC} письменных анкет заполнено \n ${bufCC} заявок на звонки оставлено`  );
     startCounter = 0
     writeCounter = 0
     callCounter = 0
-    }, 86400000), 57600000 )
+    }, 86400000)
 
 
 
