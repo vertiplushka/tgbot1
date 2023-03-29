@@ -1,5 +1,5 @@
 const telegramBot = require('node-telegram-bot-api')
-const {token, helloForm, helloStr, form, replyForm, aboutForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, chatForm} = require('./addons')
+const {token, helloStr, form, replyForm, aboutForm, noReplyForm, aboutStr, formStr, timeForm, phList1, phList2, phList3, phList4, phList5, chatForm} = require('./addons')
 
 const bot = new telegramBot(token, {polling: true})
 
@@ -57,7 +57,16 @@ let str = ''
         ]
     })
   }
-
+  const helloForm = {
+    reply_markup: JSON.stringify({
+        inline_keyboard :[
+            [{text: 'Да', callback_data: 'yes'}, {text: 'Нет', callback_data: 'no'}],
+            [{text: 'Узнать подробнее о марафоне', callback_data: 'about'}],
+            [{text: 'Посмотреть результаты участников', callback_data: 'results'}],
+            [{text: 'Наши продуктовые программы', url: 'https://t.me/Procto_vkusno_sellbot'}]
+        ]
+    })
+}
 
 const start = async () => {
 
