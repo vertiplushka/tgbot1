@@ -266,6 +266,8 @@ const start = async () => {
 
 
 setInterval(() => {
+    let t = formatTime(new Date())
+    if (t === `19:30:00`) {
     
     bufSC += startCounter
     bufWC += writeCounter
@@ -277,7 +279,7 @@ setInterval(() => {
     startCounter = 0
     writeCounter = 0
     callCounter = 0
-    }, 86400000)
+    }}, 60000)
 
 
 
