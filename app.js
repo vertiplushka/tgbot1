@@ -279,7 +279,7 @@ setInterval(() => {
     startCounter = 0
     writeCounter = 0
     callCounter = 0
-    }}, 60000)
+    }}, 500)
 
 
 
